@@ -7,7 +7,9 @@ metadata:
 spec:
   containers:
   - name: etax-web-container
-    image: dhanuwat/etax.web
+    image: dhanuwat/etax.web:stage
     ports:
     - name: etax-web-port
       containerPort: 4200
+  imagePullSecrets:
+    - name: regcred

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: etax.web
+  labels:
+    app: etax.web
+spec:
+  containers:
+  - name: etax.web-container
+    image: dhanuwat/etax.web
+    ports:
+    - name: etax.web-port
+      containerPort: 4200

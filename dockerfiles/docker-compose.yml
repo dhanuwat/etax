@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  etaxweb:
+#   build:
+#     context: .etDockerfile
+    image: dhanuwat/etaxweb:web
+    ports:
+      - "9000:9000"
+    container_name: etaxweb
+    
+#  reportapi:
+##   build:
+##     context: .
+##     dockerfile: src/Services/Reports/Report.API/Dockerfile
+#    image: reportapi:dev
+#    ports:
+#      - "54543:80"
+#    container_name: reportapi
+
+  identityapi:
+#   build:
+#     context: .
+#     dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    image: dhanuwat/etaxweb:identity
+    ports:
+      - "44540:44540"
+    container_name: identityapi
+   
+  apapi:
+#   build:
+#     context: .
+#     dockerfile: src/Services/Ap/Ap.API/Dockerfile
+    image: dhanuwat/etaxweb:api
+    ports:
+      - "44542:44542"
+    container_name: apapi
+    
+

@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  etaxweb:
+#   build:
+#     context: .etDockerfile
+    image: dhanuwat/etaxweb:web
+    ports:
+      - "9000:9000"
+    container_name: etaxweb
+    
+#  reportapi:
+##   build:
+##     context: .
+##     dockerfile: src/Services/Reports/Report.API/Dockerfile
+#    image: reportapi:dev
+#    ports:
+#      - "54543:80"
+#    container_name: reportapi
+
+  identityapi:
+#   build:
+#     context: .
+#     dockerfile: src/Services/Identity/Identity.API/Dockerfile
+    image: dhanuwat/etaxweb:identity
+    ports:
+      - "44540:44540"
+    container_name: identityapi
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=203.154.58.85;Database=ETaxIdentity;User ID=sa;Password=zjkoC]6p;MultipleActiveResultSets=true
+      - ConnectionStrings:EtaxConnection=Server=203.154.58.85;Database=ETax;User ID=sa;Password=zjkoC]6p;
+      - LinkDocker:API=http://apapi:44542
+      - LinkDocker:IdentityAPI=http://identityapi:44542
+      - LinkDocker:Client=http://localhost:9000
+   
+  apapi:
+#   build:
+#     context: .
+#     dockerfile: src/Services/Ap/Ap.API/Dockerfile
+    image: dhanuwat/etaxweb:api
+    ports:
+      - "44542:44542"
+    container_name: apapi
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=203.154.58.85;Database=Etax;User ID=sa;Password=zjkoC]6p;
+      - LinkDocker:IdentityAPI=http://identityapi:44540
+    
+

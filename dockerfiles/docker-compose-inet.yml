@@ -27,8 +27,8 @@ services:
       - "44540:44540"
     container_name: identityapi
     environment:
-      - ConnectionStrings:DefaultConnection=Server=203.154.58.85;Database=ETaxIdentity;User ID=sa;Password=zjkoC]6p;MultipleActiveResultSets=true
-      - ConnectionStrings:EtaxConnection=Server=203.154.58.85;Database=ETax;User ID=sa;Password=zjkoC]6p;
+      - ConnectionStrings:DefaultConnection=Server=203.154.58.85,1488;Database=ETaxIdentity;User ID=sa;Password=zjkoC]6p;MultipleActiveResultSets=true
+      - ConnectionStrings:EtaxConnection=Server=203.154.58.85,1488;Database=ETax;User ID=sa;Password=zjkoC]6p;
       - LinkDocker:API=http://apapi:44542
       - LinkDocker:IdentityAPI=http://identityapi:44542
       - LinkDocker:Client=http://localhost:9000
@@ -42,7 +42,7 @@ services:
       - "44542:44542"
     container_name: apapi
     environment:
-      - ConnectionStrings:DefaultConnection=Server=203.154.58.85;Database=Etax;User ID=sa;Password=zjkoC]6p;
+      - ConnectionStrings:DefaultConnection=Server=203.154.58.85,1488;Database=Etax;User ID=sa;Password=zjkoC]6p;
       - LinkDocker:IdentityAPI=http://identityapi:44540
     
 

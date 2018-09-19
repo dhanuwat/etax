@@ -3,36 +3,36 @@ kind: Service
 metadata:
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
-  name: etax-web-service
+  name: etax-identity-service
   labels:
     app: etax
 spec:
-  type: NodePort
+  --type: NodePort
   ports:
-  - port: 9000
-    name: etax-web-service-port
-    targetPort: 9000
-    nodePort: 32756
+  - port: 44540
+    name: etax-identity-service-port
+    targetPort: 44540
+    --nodePort: 32756
   selector:
-    component: etax-web
+    component: etax-identity
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: etax-web-deployment
+  name: etax-identity-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
         app: etax
-        component: etax-web
-        tier: frontend
+        component: etax-identity
+        tier: backend
     spec:
       containers:
-      - name: etax-web-container
-        image: dhanuwat/etax-web:v1.0.0
+      - name: etax-identity-container
+        image: dhanuwat/etax-identity:v1.0.0
         ports:
-        - containerPort: 9000
+        - containerPort: 44540
       imagePullSecrets:
       - name: regcred

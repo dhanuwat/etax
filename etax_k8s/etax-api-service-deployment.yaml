@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: etax-api-service
+  labels:
+    app: etax
+spec:
+  #type: NodePort
+  ports:
+  - port: 44542
+    name: etax-api-service-port
+    targetPort: 44542
+    #nodePort: 32756
+  selector:
+    component: etax-api
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etax-api-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: etax
+        component: etax-api
+        tier: backend
+    spec:
+      containers:
+      - name: etax-api-container
+        image: dhanuwat/etax-api:v1.0.0
+        ports:
+        - containerPort: 44542
+      imagePullSecrets:
+      - name: regcred

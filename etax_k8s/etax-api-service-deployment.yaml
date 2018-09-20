@@ -7,12 +7,12 @@ metadata:
   labels:
     app: etax
 spec:
-  type: NodePort
+  #type: NodePort
   ports:
   - port: 44542
     name: etax-api-service-port
     targetPort: 44542
-    nodePort: 44542
+    #nodePort: 32756
   selector:
     component: etax-api
 ---

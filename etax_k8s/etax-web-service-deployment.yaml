@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: etax-web-container
-        image: dhanuwat/etax-web:v1.0.0
+        image: dhanuwat/etax-web:v1.0.1
         ports:
         - containerPort: 9000
       imagePullSecrets:

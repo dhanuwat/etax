@@ -7,12 +7,12 @@ metadata:
   labels:
     app: etax
 spec:
-  #type: NodePort
+  type: NodePort
   ports:
-  - port: 44542
+  - port: 30542
     name: etax-api-service-port
-    targetPort: 44542
-    #nodePort: 32756
+    targetPort: 30542
+    nodePort: 30542
   selector:
     component: etax-api
 ---
@@ -31,8 +31,8 @@ spec:
     spec:
       containers:
       - name: etax-api-container
-        image: dhanuwat/etax-api:v1.0.0
+        image: dhanuwat/etax-api:v1.0.1
         ports:
-        - containerPort: 44542
+        - containerPort: 30542
       imagePullSecrets:
       - name: regcred

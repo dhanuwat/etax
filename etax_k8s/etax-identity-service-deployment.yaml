@@ -7,12 +7,12 @@ metadata:
   labels:
     app: etax
 spec:
-  #type: NodePort
+  type: NodePort
   ports:
-  - port: 44540
+  - port: 30540
     name: etax-identity-service-port
-    targetPort: 44540
-    #nodePort: 32756
+    targetPort: 30540
+    nodePort: 30540
   selector:
     component: etax-identity
 ---
@@ -31,8 +31,8 @@ spec:
     spec:
       containers:
       - name: etax-identity-container
-        image: dhanuwat/etax-identity:v1.0.0
+        image: dhanuwat/etax-identity:v1.0.1
         ports:
-        - containerPort: 44540
+        - containerPort: 30540
       imagePullSecrets:
       - name: regcred

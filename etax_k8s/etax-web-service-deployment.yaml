@@ -9,9 +9,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 9000
+  - port: 30000
     name: etax-web-service-port
-    targetPort: 9000
+    targetPort: 30000
     nodePort: 30000
   selector:
     component: etax-web
@@ -33,6 +33,6 @@ spec:
       - name: etax-web-container
         image: dhanuwat/etax-web:v1.0.4
         ports:
-        - containerPort: 9000
+        - containerPort: 30000
       imagePullSecrets:
       - name: regcred

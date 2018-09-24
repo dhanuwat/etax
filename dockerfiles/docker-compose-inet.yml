@@ -15,7 +15,7 @@ services:
 #     dockerfile: src/Services/Reports/Report.API/Dockerfile
     image: dhanuwat/etax-report:v1.0.0
     ports:
-      - "54543:80"
+      - "54543:54543"
     container_name: reportapi
     environment:
       - LinkDocker:API=http://apapi:44542

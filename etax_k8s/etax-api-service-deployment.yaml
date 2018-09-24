@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: etax-api-container
-        image: dhanuwat/etax-api:v1.0.1
+        image: dhanuwat/etax-api:v1.0.2
         ports:
         - containerPort: 30542
       imagePullSecrets:

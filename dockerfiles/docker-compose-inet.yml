@@ -9,14 +9,17 @@ services:
       - "9000:9000"
     container_name: etaxweb
     
-#  reportapi:
-##   build:
-##     context: .
-##     dockerfile: src/Services/Reports/Report.API/Dockerfile
-#    image: reportapi:dev
-#    ports:
-#      - "54543:80"
-#    container_name: reportapi
+  reportapi:
+#   build:
+#     context: .
+#     dockerfile: src/Services/Reports/Report.API/Dockerfile
+    image: dhanuwat/etax-report:v1.0.0
+    ports:
+      - "54543:80"
+    container_name: reportapi
+    environment:
+      - LinkDocker:API=http://apapi:44542
+      - LinkDocker:IdentityAPI=http://identityapi:44542
 
   identityapi:
 #   build:

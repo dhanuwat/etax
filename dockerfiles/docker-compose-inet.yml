@@ -13,12 +13,12 @@ services:
 #   build:
 #     context: .
 #     dockerfile: src/Services/Reports/Report.API/Dockerfile
-    image: dhanuwat/etax-report:v1.0.0
+    image: dhanuwat/etax-report:v1.0.1
     ports:
       - "54543:54543"
     container_name: reportapi
     environment:
-      - LinkDocker:API=http://apapi:44542
+      - LinkDocker:API=http://203.154.58.84:44542
       - LinkDocker:IdentityAPI=http://identityapi:44542
 
   identityapi:

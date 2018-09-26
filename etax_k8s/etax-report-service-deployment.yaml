@@ -34,13 +34,13 @@ spec:
         image: dhanuwat/etax-report:v1.0.7
         env:
         - name: Link__API
-          value: "http://localhost:30542"
+          value: "http://etax-api-service:30542"
         - name: Link__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         - name: LinkDocker__API
-          value: "http://localhost:30542"
+          value: "http://etax-api-service:30542"
         - name: LinkDocker__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         ports:
         - containerPort: 30543
       imagePullSecrets:

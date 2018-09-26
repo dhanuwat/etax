@@ -38,17 +38,17 @@ spec:
         - name: ConnectionStrings__EtaxConnection
           value: "Server=203.154.58.85,1488;Database=ETax;User ID=sa;Password=zjkoC]6p;"
         - name: Link__API
-          value: "http://localhost:30542"
+          value: "http://etax-api-service:30542"
         - name: Link__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         - name: Link__Client
-          value: "http://localhost:30500"
+          value: "http://etax-web-service:30500"
         - name: LinkDocker__API
-          value: "http://localhost:30540"
+          value: "http://etax-api-service:30540"
         - name: LinkDocker__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         - name: LinkDocker__Client
-          value: "http://localhost:30500"
+          value: "http://etax-web-service:30500"
         ports:
         - containerPort: 30540
       imagePullSecrets:

@@ -36,9 +36,9 @@ spec:
         - name: ConnectionStrings__DefaultConnection
           value: "Server=203.154.58.85,1488;Database=Etax;User ID=sa;Password=zjkoC]6p;"
         - name: Link__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         - name: LinkDocker__IdentityAPI
-          value: "http://localhost:30540"
+          value: "http://etax-identity-service:30540"
         ports:
         - containerPort: 30542
       imagePullSecrets:

@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: etax-api-container
-        image: dhanuwat/etax-api:v1.0.2
+        image: dhanuwat/etax-api:v1.0.3
         env:
         - name: ConnectionStrings__DefaultConnection
           value: "Server=203.154.58.85,1488;Database=Etax;User ID=sa;Password=zjkoC]6p;"

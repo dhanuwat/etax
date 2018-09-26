@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: etax-report-container
-        image: dhanuwat/etax-report:v1.0.6
+        image: dhanuwat/etax-report:v1.0.7
         env:
         - name: Link__API
           value: "http://localhost:30542"

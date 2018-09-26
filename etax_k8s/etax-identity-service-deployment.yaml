@@ -32,6 +32,23 @@ spec:
       containers:
       - name: etax-identity-container
         image: dhanuwat/etax-identity:v1.0.2
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=203.154.58.85,1488;Database=ETaxIdentity;User ID=sa;Password=zjkoC]6p;MultipleActiveResultSets=true;"
+        - name: ConnectionStrings__EtaxConnection
+          value: "Server=203.154.58.85,1488;Database=ETax;User ID=sa;Password=zjkoC]6p;"
+        - name: Link__API
+          value: "http://localhost:30542"
+        - name: Link__IdentityAPI
+          value: "http://localhost:30540"
+        - name: Link__Client
+          value: "http://localhost:30500"
+        - name: LinkDocker__API
+          value: "http://localhost:30540"
+        - name: LinkDocker__IdentityAPI
+          value: "http://localhost:30540"
+        - name: LinkDocker__Client
+          value: "http://localhost:30500"
         ports:
         - containerPort: 30540
       imagePullSecrets:

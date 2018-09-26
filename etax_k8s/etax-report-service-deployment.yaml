@@ -3,43 +3,45 @@ kind: Service
 metadata:
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
-  name: etax-api-service
+  name: etax-report-service
   labels:
     app: etax
 spec:
   type: NodePort
   ports:
-  - port: 30542
-    name: etax-api-service-port
-    targetPort: 30542
-    nodePort: 30542
+  - port: 30543
+    name: etax-report-service-port
+    targetPort: 30543
+    nodePort: 30543
   selector:
-    component: etax-api
+    component: etax-report
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: etax-api-deployment
+  name: etax-report-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
         app: etax
-        component: etax-api
+        component: etax-report
         tier: backend
     spec:
       containers:
-      - name: etax-api-container
-        image: dhanuwat/etax-api:v1.0.2
+      - name: etax-report-container
+        image: dhanuwat/etax-report:v1.0.6
         env:
-        - name: ConnectionStrings__DefaultConnection
-          value: "Server=203.154.58.85,1488;Database=Etax;User ID=sa;Password=zjkoC]6p;"
+        - name: Link__API
+          value: "http://localhost:30542"
         - name: Link__IdentityAPI
           value: "http://localhost:30540"
+        - name: LinkDocker__API
+          value: "http://localhost:30542"
         - name: LinkDocker__IdentityAPI
           value: "http://localhost:30540"
         ports:
-        - containerPort: 30542
+        - containerPort: 30543
       imagePullSecrets:
       - name: regcred

@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: etax-web-service
+  labels:
+    app: etax
+spec:
+  type: NodePort
+  ports:
+  - port: 30500
+    name: etax-web-service-port
+    targetPort: 30500
+    nodePort: 30500
+  selector:
+    component: etax-web
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etax-web-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: etax
+        component: etax-web
+        tier: frontend
+    spec:
+      containers:
+      - name: etax-web-container
+        image: dhanuwat/etax-web:v1.0.9
+        ports:
+        - containerPort: 30500
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: etax-api-service
+  labels:
+    app: etax
+spec:
+  type: NodePort
+  ports:
+  - port: 30542
+    name: etax-api-service-port
+    targetPort: 30542
+    nodePort: 30542
+  selector:
+    component: etax-api
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etax-api-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: etax
+        component: etax-api
+        tier: backend
+    spec:
+      containers:
+      - name: etax-api-container
+        image: dhanuwat/etax-api:v1.0.3
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=203.154.58.85,1488;Database=Etax;User ID=sa;Password=zjkoC]6p;"
+        - name: Link__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        - name: LinkDocker__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        ports:
+        - containerPort: 30542
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: etax-identity-service
+  labels:
+    app: etax
+spec:
+  type: NodePort
+  ports:
+  - port: 30540
+    name: etax-identity-service-port
+    targetPort: 30540
+    nodePort: 30540
+  selector:
+    component: etax-identity
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etax-identity-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: etax
+        component: etax-identity
+        tier: backend
+    spec:
+      containers:
+      - name: etax-identity-container
+        image: dhanuwat/etax-identity:v1.0.5
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=203.154.58.85,1488;Database=ETaxIdentity;User ID=sa;Password=zjkoC]6p;MultipleActiveResultSets=true;"
+        - name: ConnectionStrings__EtaxConnection
+          value: "Server=203.154.58.85,1488;Database=ETax;User ID=sa;Password=zjkoC]6p;"
+        - name: Link__API
+          value: "http://etax-api-service:30542"
+        - name: Link__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        - name: Link__Client
+          value: "http://203.154.59.95:30500"
+        - name: LinkDocker__API
+          value: "http://etax-api-service:30540"
+        - name: LinkDocker__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        - name: LinkDocker__Client
+          value: "http://203.154.59.95:30500"
+        ports:
+        - containerPort: 30540
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: etax-report-service
+  labels:
+    app: etax
+spec:
+  type: NodePort
+  ports:
+  - port: 30543
+    name: etax-report-service-port
+    targetPort: 30543
+    nodePort: 30543
+  selector:
+    component: etax-report
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: etax-report-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: etax
+        component: etax-report
+        tier: backend
+    spec:
+      containers:
+      - name: etax-report-container
+        image: dhanuwat/etax-report:v1.0.7
+        env:
+        - name: Link__API
+          value: "http://etax-api-service:30542"
+        - name: Link__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        - name: LinkDocker__API
+          value: "http://etax-api-service:30542"
+        - name: LinkDocker__IdentityAPI
+          value: "http://etax-identity-service:30540"
+        ports:
+        - containerPort: 30543
+      imagePullSecrets:
+      - name: regcred

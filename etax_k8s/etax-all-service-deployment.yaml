@@ -60,7 +60,7 @@ kind: Deployment
 metadata:
   name: etax-api-deployment
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -80,6 +80,12 @@ spec:
           value: "http://etax-identity-service:30540"
         ports:
         - containerPort: 30542
+        livenessProbe:
+          httpGet:
+            path: /api/healthcheck
+            port: 30542
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
       imagePullSecrets:
       - name: regcred
 ---
@@ -106,7 +112,7 @@ kind: Deployment
 metadata:
   name: etax-identity-deployment
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -136,6 +142,12 @@ spec:
           value: "http://203.154.59.95:30500"
         ports:
         - containerPort: 30540
+        livenessProbe:
+          httpGet:
+            path: /api/healthcheck
+            port: 30540
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
       imagePullSecrets:
       - name: regcred
 ---
@@ -162,7 +174,7 @@ kind: Deployment
 metadata:
   name: etax-report-deployment
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -184,5 +196,50 @@ spec:
           value: "http://etax-identity-service:30540"
         ports:
         - containerPort: 30543
+        livenessProbe:
+          httpGet:
+            path: /api/healthcheck
+            port: 30543
+          initialDelaySeconds: 15
+          timeoutSeconds: 30
       imagePullSecrets:
       - name: regcred
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: etax-api-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: etax-api-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: etax-identity-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: etax-identity-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: etax-report-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: etax-report-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

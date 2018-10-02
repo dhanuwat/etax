@@ -86,6 +86,9 @@ spec:
             port: 30542
           initialDelaySeconds: 15
           timeoutSeconds: 30
+        resources:
+          requests:
+            cpu: 200m
       imagePullSecrets:
       - name: regcred
 ---
@@ -148,6 +151,9 @@ spec:
             port: 30540
           initialDelaySeconds: 15
           timeoutSeconds: 30
+        resources:
+          requests:
+            cpu: 200m
       imagePullSecrets:
       - name: regcred
 ---
@@ -202,6 +208,9 @@ spec:
             port: 30543
           initialDelaySeconds: 15
           timeoutSeconds: 30
+        resources:
+          requests:
+            cpu: 200m
       imagePullSecrets:
       - name: regcred
 ---

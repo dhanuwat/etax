@@ -82,12 +82,12 @@ spec:
         ports:
         - name: api-port
           containerPort: 30542
-        livenessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: api-port
-          initialDelaySeconds: 15
-          timeoutSeconds: 30
+        #livenessProbe:
+        #  httpGet:
+        #    path: /api/healthcheck
+        #    port: api-port
+        #  initialDelaySeconds: 15
+        #  timeoutSeconds: 30
         resources:
           requests:
             cpu: 200m
@@ -148,12 +148,12 @@ spec:
         ports:
         - name: identity-port
           containerPort: 30540
-        livenessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: identity-port
-          initialDelaySeconds: 15
-          timeoutSeconds: 30
+        #livenessProbe:
+        #  httpGet:
+        #    path: /api/healthcheck
+        #    port: identity-port
+        #  initialDelaySeconds: 15
+        #  timeoutSeconds: 30
         resources:
           requests:
             cpu: 200m
@@ -206,12 +206,12 @@ spec:
         ports:
         - name: report-port
           containerPort: 30543
-        livenessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: report-port
-          initialDelaySeconds: 15
-          timeoutSeconds: 30
+        #livenessProbe:
+        #  httpGet:
+        #    path: /api/healthcheck
+        #    port: report-port
+        #  initialDelaySeconds: 15
+        #  timeoutSeconds: 30
         resources:
           requests:
             cpu: 200m

@@ -33,7 +33,7 @@ spec:
       - name: etax-web-container
         image: dhanuwat/etax-web:v1.0.9
         ports:
-        - name: etax-web-container-port
+        - name: web-port
           containerPort: 30500
       imagePullSecrets:
       - name: regcred
@@ -80,12 +80,12 @@ spec:
         - name: LinkDocker__IdentityAPI
           value: "http://etax-identity-service:30540"
         ports:
-        - name: etax-api-container-port
+        - name: api-port
           containerPort: 30542
         livenessProbe:
           httpGet:
             path: /api/healthcheck
-            port: etax-api-container-port
+            port: api-port
           initialDelaySeconds: 15
           timeoutSeconds: 30
         resources:
@@ -146,12 +146,12 @@ spec:
         - name: LinkDocker__Client
           value: "http://203.154.59.95:30500"
         ports:
-        - name: etax-identity-container-port
+        - name: identity-port
           containerPort: 30540
         livenessProbe:
           httpGet:
             path: /api/healthcheck
-            port: etax-identity-container-port
+            port: identity-port
           initialDelaySeconds: 15
           timeoutSeconds: 30
         resources:
@@ -204,12 +204,12 @@ spec:
         - name: LinkDocker__IdentityAPI
           value: "http://etax-identity-service:30540"
         ports:
-        - name: etax-report-container-port
+        - name: report-port
           containerPort: 30543
         livenessProbe:
           httpGet:
             path: /api/healthcheck
-            port: etax-report-container-port
+            port: report-port
           initialDelaySeconds: 15
           timeoutSeconds: 30
         resources:
